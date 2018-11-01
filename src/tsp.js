@@ -180,7 +180,7 @@ export default class TSP {
     }, []).slice(0, -1))
 
     //current total distance
-    $('#total-distance').html(this.getDistance(this.orders))
+    $('#total-distance').html((this.getDistance(this.orders)).toFixed(2))
 
 
 
