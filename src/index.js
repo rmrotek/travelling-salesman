@@ -3,6 +3,13 @@ import TSP from './TSP'
 
 const WIDTH = 800
 const HEIGHT = 600
+var numberOfNodes = 10;
+
+$( "#number-of-nodes" )
+  .keyup(function() {
+    numberOfNodes = parseInt($( this ).val());
+  })
+  .keyup();
 
 const tsp = new TSP($('#c'), WIDTH, HEIGHT, () => {
   $('#btn-start').attr('disabled', true)
@@ -15,8 +22,8 @@ const tsp = new TSP($('#c'), WIDTH, HEIGHT, () => {
 
 // set numbers of nodes here ! 
 $(document).ready(() => {
-  if($('#number-of-nodes').val() !== undefined) {
-    tsp.makeRandomNodes(parseInt($('#number-of-nodes').val()))
+  if(numberOfNodes !== undefined) {
+    tsp.makeRandomNodes(numberOfNodes)
   } else {
     tsp.makeRandomNodes(10)
   }
@@ -32,12 +39,11 @@ $(document).ready(() => {
 
 $('#btn-random').click(() => {
   tsp.stop()
-  if($('#number-of-nodes').val() !== undefined) {
-    tsp.makeRandomNodes(parseInt($('#number-of-nodes').val()))
+  if(numberOfNodes !== undefined) {
+    tsp.makeRandomNodes(numberOfNodes)
   } else {
     tsp.makeRandomNodes(10)
   }
-  console.log(parseInt($('#number-of-nodes').val()))
   tsp.render()
 })
 
