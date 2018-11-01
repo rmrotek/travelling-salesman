@@ -1,5 +1,6 @@
 import shuffle from './utils/shuffle'
 import GA from './GeneticAlgorithm'
+import wait from './utils/wait'
 
 
 
@@ -158,4 +159,46 @@ export default class TSP {
     $('#gen').html(this.ga.generation)
     //$('#mutation').html(this.ga.mutation_count)
   }
+
+  async run () {
+    let last_best_score = -1
+    let last_best_gen = 0
+
+    while (this.is_running) {
+      this.orders = this.ga.next()
+
+      let {best, generation} = this.ga
+
+      if (last_best_score !== best.score) {
+        last_best_score = best.score
+        last_best_gen = generation
+      } else if (generation - last_best_gen >= 5000) {
+        // auto stop on results
+        this.stop()
+        break
+      }
+
+      if (this.ga.generation % 10 === 0) {
+        this.render()
+      }
+      await wait(1)
+    }
+  }
+
+  start () {
+    this.is_running = true
+    this.run()
+    if (typeof this._onstart === 'function') {
+      this._onstart()
+    }
+  }
+
+  stop () {
+    this.is_running = false
+
+    if (typeof this._onstop === 'function') {
+      this._onstop()
+    }
+  }
 }
+
