@@ -7,7 +7,7 @@ const moment = require('moment')
 const config = {
   base: {
     entry: {
-      'bundle': './js/index.js'
+      'bundle': './src/index.js'
     },
     output: {
       path: path.join(__dirname, 'build'),
