@@ -86,8 +86,10 @@ export default class GA {
       new_lives.push(this.newChild())
     }
     this.lives = new_lives
+    let bestPath =this.best.gene
+    console.log(bestPath)
 
-    console.log(this.best.score)
+    // console.log(this.best.score)
     return this.best.gene.slice(0)
   }
 

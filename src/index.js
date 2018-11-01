@@ -13,7 +13,7 @@ const tsp = new TSP($('#c'), WIDTH, HEIGHT, () => {
 })
 // set numbers of nodes here ! 
 $(document).ready(() => {
-  tsp.makeRandomNodes(30)
+  tsp.makeRandomNodes(10)
   tsp.render()
   $('#btn-stop').attr('disabled', true)
 
@@ -24,7 +24,7 @@ $(document).ready(() => {
 
 $('#btn-random').click(() => {
   tsp.stop()
-  tsp.makeRandomNodes(30)
+  tsp.makeRandomNodes(10)
   tsp.render()
 })
 

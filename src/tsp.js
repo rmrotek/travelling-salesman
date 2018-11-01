@@ -6,23 +6,23 @@ import wait from './utils/wait'
 
 
 export default class TSP {
-  constructor (el, width, height, onstart, onstop) {
+  constructor(el, width, height, onstart, onstop) {
     this.el = el
     this.width = width
     this.height = height
     this.nodes = []
     this.orders = []
-    this.r = 4
+    this.radius = 8
     this.lw = 2
 
     this.mutation_rate = 0.05
 
-    this.dr = window.devicePixelRatio || 1
+    this.deviceRatio = window.devicePixelRatio || 1
 
     this.el
-      .attr('width', width * this.dr)
-      .attr('height', height * this.dr)
-      .css({width: Math.min(width, screen.width) + 'px'})
+      .attr('width', width * this.deviceRatio)
+      .attr('height', height * this.deviceRatio)
+      .css({ width: Math.min(width, screen.width) + 'px' })
 
     this.ctx = this.el[0].getContext('2d')
     this.is_running = false
@@ -31,7 +31,7 @@ export default class TSP {
     this._onstop = onstop
   }
 
-  makeRandomNodes (n = 32, life_count = 100) {
+  makeRandomNodes(n = 32, life_count = 100) {
     this.is_running = false
     this.n = n
     this.life_count = life_count
@@ -61,12 +61,12 @@ export default class TSP {
     })
   }
 
-  rate (gene) {
+  rate(gene) {
     return 1 / this.getDistance(gene)
   }
 
   // cross function
-  xFunc (lf1, lf2) {
+  xFunc(lf1, lf2) {
     let p1 = Math.floor(Math.random() * (this.n - 2)) + 1
     let p2 = Math.floor(Math.random() * (this.n - p1)) + p1
     let piece = lf2.gene.slice(p1, p2)
@@ -81,7 +81,7 @@ export default class TSP {
   }
 
   //mutate
-  mFunc (gene) {
+  mFunc(gene) {
     let p1 = 0
     let p2 = 0
     let n = gene.length
@@ -117,9 +117,9 @@ export default class TSP {
   }
 
   //get total distance in current route
-  getDistance (order = null) {
+  getDistance(order = null) {
     let distance = 0
-    let {nodes} = this
+    let { nodes } = this
     order.concat(order[0]).reduce((a, b) => {
       distance += Math.sqrt(Math.pow(nodes[a].x - nodes[b].x, 2) + Math.pow(nodes[a].y - nodes[b].y, 2))
       return b
@@ -127,47 +127,50 @@ export default class TSP {
     return distance
   }
 
-  render () {
-    let {ctx, r, nodes, dr} = this
-    ctx.clearRect(0, 0, this.width * dr, this.height * dr)
+  render() {
+    let { ctx, radius, nodes, deviceRatio } = this
+    ctx.clearRect(0, 0, this.width * deviceRatio, this.height * deviceRatio)
 
-    ctx.lineWidth = this.lw * dr
+    ctx.lineWidth = this.lw * deviceRatio
     ctx.strokeStyle = 'rgba(64, 64, 64, 0.2)'
 
     // lines
     this.orders.concat(this.orders[0]).reduce((a, b) => {
-      // console.log(a, '->', b)
+      console.log(a, '->', b)
       let na = nodes[a]
       let nb = nodes[b]
       ctx.beginPath()
-      ctx.moveTo(na.x * dr, na.y * dr)
-      ctx.lineTo(nb.x * dr, nb.y * dr)
+      ctx.moveTo(na.x * deviceRatio, na.y * deviceRatio)
+      ctx.lineTo(nb.x * deviceRatio, nb.y * deviceRatio)
       ctx.stroke()
+      console.log(na.x, na.y)
+      console.log(nb.x, nb.y)
+
       return b
     })
 
-    ctx.lineWidth = 1 * dr
+    ctx.lineWidth = 1 * deviceRatio
     ctx.strokeStyle = '#900'
-    ctx.fillStyle = '#f66'
+    ctx.fillStyle = '#000'
+    ctx.font = ' bolder 15px arial '
     // nodes
-    nodes.map(n => {
-      ctx.beginPath()
-      ctx.arc(n.x * dr, n.y * dr, r * dr, 0, 2 * Math.PI)
-      ctx.fill()
-      ctx.stroke()
-    })
+
+    for (let i = 0; i < nodes.length; i++) {
+      ctx.fillText(i, nodes[i].x, (nodes[i].y))
+    }
+
     $('#gen').html(this.ga.generation)
     $('#mutation').html(this.ga.mutation_count)
   }
 
-  async run () {
+  async run() {
     let last_best_score = -1
     let last_best_gen = 0
 
     while (this.is_running) {
       this.orders = this.ga.next()
 
-      let {best, generation} = this.ga
+      let { best, generation } = this.ga
 
       if (last_best_score !== best.score) {
         last_best_score = best.score
@@ -185,7 +188,7 @@ export default class TSP {
     }
   }
 
-  start () {
+  start() {
     this.is_running = true
     this.run()
     if (typeof this._onstart === 'function') {
@@ -193,7 +196,7 @@ export default class TSP {
     }
   }
 
-  stop () {
+  stop() {
     this.is_running = false
 
     if (typeof this._onstop === 'function') {
