@@ -1,3 +1,5 @@
+import shuffle from '../libs/shuffle'
+import GA from './GA'
 
 
 
