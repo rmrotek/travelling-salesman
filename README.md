@@ -3,7 +3,7 @@ Made for a recruitment task
 
 # -------------------------------------------------------
 
-User can input 'n' number of points on the map and choose one of them as a starting position.
+User can input 'n' number of points to be displayed on the map.
 
 Calculate the distance between each pair of points.
 
