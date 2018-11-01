@@ -28,5 +28,18 @@ export default class TSP {
     this._onstop = onstop
   }
 
-  
+  // cross function
+  xFunc (lf1, lf2) {
+    let p1 = Math.floor(Math.random() * (this.n - 2)) + 1
+    let p2 = Math.floor(Math.random() * (this.n - p1)) + p1
+    let piece = lf2.gene.slice(p1, p2)
+    let new_gene = lf1.gene.slice(0, p1)
+    piece.concat(lf2.gene).map(i => {
+      if (!new_gene.includes(i)) {
+        new_gene.push(i)
+      }
+    })
+
+    return new_gene
+  }
 }
