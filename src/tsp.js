@@ -136,7 +136,7 @@ export default class TSP {
 
     // lines
     this.orders.concat(this.orders[0]).reduce((a, b) => {
-      //console.log(a, '->', b)
+      // console.log(a, '->', b)
       let na = nodes[a]
       let nb = nodes[b]
       ctx.beginPath()
@@ -157,7 +157,7 @@ export default class TSP {
       ctx.stroke()
     })
     $('#gen').html(this.ga.generation)
-    //$('#mutation').html(this.ga.mutation_count)
+    $('#mutation').html(this.ga.mutation_count)
   }
 
   async run () {

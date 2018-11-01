@@ -87,7 +87,7 @@ export default class GA {
     }
     this.lives = new_lives
 
-    //console.log(this.best.score)
+    console.log(this.best.score)
     return this.best.gene.slice(0)
   }
 
