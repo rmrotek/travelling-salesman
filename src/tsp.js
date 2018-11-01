@@ -124,6 +124,7 @@ export default class TSP {
       distance += Math.sqrt(Math.pow(nodes[a].x - nodes[b].x, 2) + Math.pow(nodes[a].y - nodes[b].y, 2))
       return b
     })
+    $('#total-distance').html(distance)
     return distance
   }
 
@@ -143,15 +144,13 @@ export default class TSP {
       ctx.moveTo(na.x * deviceRatio, na.y * deviceRatio)
       ctx.lineTo(nb.x * deviceRatio, nb.y * deviceRatio)
       ctx.stroke()
-      // console.log('a x '+ na.x,'a y ' +na.y)
-      // console.log('b x '+nb.x,'b y ' +nb.y)
-      // console.log('delta x ' + (na.x-nb.x), 'delta y '+ (na.y-nb.y))
-      let deltaX = na.x - nb.x
-      let deltaY = na.y - nb.y
-      console.log('distance ' + Math.hypot((deltaX), (deltaY)))
+
       return b
     })
 
+
+    console.log(this.orders)
+    //draw current route
     $('#path').html(this.orders.reduce(function (a, b) {
       return a.concat(b).concat(" => ");
     }, []).slice(0, -1))
@@ -161,8 +160,9 @@ export default class TSP {
     ctx.strokeStyle = '#900'
     ctx.fillStyle = '#000'
     ctx.font = ' bolder 15px arial '
-    // nodes
 
+    // nodes
+    //draw index nr
     for (let i = 0; i < nodes.length; i++) {
       ctx.fillText(i, nodes[i].x, (nodes[i].y))
     }
