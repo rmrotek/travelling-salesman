@@ -143,13 +143,19 @@ export default class TSP {
       ctx.moveTo(na.x * deviceRatio, na.y * deviceRatio)
       ctx.lineTo(nb.x * deviceRatio, nb.y * deviceRatio)
       ctx.stroke()
-      console.log('a x '+ na.x,'a y ' +na.y)
-      console.log('b x '+nb.x,'b y ' +nb.y)
-      console.log('delta x ' + (na.x-nb.x), 'delta y '+ (na.y-nb.y))
-      console.log('distance ' + Math.hypot((na.x-nb.x), (na.y-nb.y)))
-
+      // console.log('a x '+ na.x,'a y ' +na.y)
+      // console.log('b x '+nb.x,'b y ' +nb.y)
+      // console.log('delta x ' + (na.x-nb.x), 'delta y '+ (na.y-nb.y))
+      let deltaX = na.x - nb.x
+      let deltaY = na.y - nb.y
+      console.log('distance ' + Math.hypot((deltaX), (deltaY)))
       return b
     })
+
+    $('#path').html(this.orders.reduce(function (a, b) {
+      return a.concat(b).concat(" => ");
+    }, []).slice(0, -1))
+
 
     ctx.lineWidth = 1 * deviceRatio
     ctx.strokeStyle = '#900'
