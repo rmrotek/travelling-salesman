@@ -42,4 +42,40 @@ export default class TSP {
 
     return new_gene
   }
+
+  //mutate
+  mFunc (gene) {
+    let p1 = 0
+    let p2 = 0
+    let n = gene.length
+    while (p1 === p2) {
+      p1 = Math.floor(Math.random() * n)
+      p2 = Math.floor(Math.random() * n)
+    }
+    if (p1 > p2) {
+      [p1, p2] = [p2, p1]
+    }
+
+    let funcs = [
+      (g, p1, p2) => {
+        // exchange, t =temporary
+        let t = g[p1]
+        g[p1] = g[p2]
+        g[p2] = t
+      }, (g, p1, p2) => {
+        // reverse
+        let t = g.slice(p1, p2).reverse()
+        g.splice(p1, p2 - p1, ...t)
+      }, (g, p1, p2) => {
+        // move
+        let t = g.splice(p1, p2 - p1)
+        g.splice(Math.floor(Math.random() * g.length), 0, ...t)
+      }
+    ]
+
+    let r = Math.floor(Math.random() * funcs.length)
+    funcs[r](gene, p1, p2)
+
+    return gene
+  }
 }
