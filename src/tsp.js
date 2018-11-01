@@ -1,4 +1,4 @@
-import shuffle from '../utils/shuffle'
+import shuffle from './utils/shuffle'
 import GA from './GeneticAlgorithm'
 
 

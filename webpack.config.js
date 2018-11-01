@@ -19,7 +19,7 @@ const config = {
     module: {
       rules: [{
         test: /\.js$/,
-        loader: ['es3ify-loader', 'babel-loader'],
+        loaders: ['es3ify-loader', 'babel-loader'],
         exclude: /node_modules/
       }]
     },

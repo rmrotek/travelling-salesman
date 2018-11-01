@@ -1,4 +1,3 @@
-'use strict'
 
 import TSP from './TSP'
 
