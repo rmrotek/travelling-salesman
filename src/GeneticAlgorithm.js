@@ -71,4 +71,24 @@ export default class GA {
     }
   }
 
+  newChild () {
+    return this.bear(this.getOne(), this.getOne())
+  }
+
+  next () {
+    this.generation++
+
+    this.doRate()
+    let new_lives = []
+    new_lives.push(this.best) // join best match
+    new_lives.push(new Life(this.gene_length)) // add random value
+    while (new_lives.length < this.life_count) {
+      new_lives.push(this.newChild())
+    }
+    this.lives = new_lives
+
+    //console.log(this.best.score)
+    return this.best.gene.slice(0)
+  }
+
 }
