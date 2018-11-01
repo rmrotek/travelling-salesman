@@ -1,5 +1,5 @@
-import shuffle from '../libs/shuffle'
-import GA from './GA'
+import shuffle from '../utils/shuffle'
+import GA from './GeneticAlgorithm'
 
 
 
