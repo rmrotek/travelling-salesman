@@ -21,6 +21,23 @@ export default class GA {
     }
   }
 
+
+  // Calculate the score of each individual based on the method passed in
+  doRate () {
+    //let last_avg = this.scores / this.life_count
+    this.scores = 0
+    let last_best_score = -1
+
+    this.lives.map(lf => {
+      lf.setScore(this.rate(lf.gene))
+      if (lf.score > last_best_score) {
+        last_best_score = lf.score
+        this.best = lf
+      }
+      this.scores += lf.score
+    })
+  }
+
   bear (p1, p2) {
     // generate descendants, based on p1 & p2 
     let gene
@@ -38,6 +55,20 @@ export default class GA {
     }
 
     return new Life(gene)
+  }
+
+  // According to the score, randomly get an individual, the probability is proportional to the individual's score attribute
+  getOne () {
+    let {scores, lives} = this
+    let r = Math.random() * scores
+
+    for (let i = 0, l = lives.length; i < l; i++) {
+      let lf = lives[i]
+      r -= lf.score
+      if (r <= 0) {
+        return lf
+      }
+    }
   }
 
 }
