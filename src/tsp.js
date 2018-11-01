@@ -63,6 +63,7 @@ export default class TSP {
 
   rate(gene) {
     return 1 / this.getDistance(gene)
+    
   }
 
   // cross function
@@ -118,14 +119,16 @@ export default class TSP {
 
   //get total distance in current route
   getDistance(order = null) {
-    let distance = 0
+    let distanceTotal = 0
+    let distancesArr=[]
     let { nodes } = this
     order.concat(order[0]).reduce((a, b) => {
-      distance += Math.sqrt(Math.pow(nodes[a].x - nodes[b].x, 2) + Math.pow(nodes[a].y - nodes[b].y, 2))
+      let currentDistance = Math.hypot((nodes[a].x - nodes[b].x), (nodes[a].y - nodes[b].y))
+      distanceTotal += currentDistance
+      
       return b
     })
-    $('#total-distance').html(distance)
-    return distance
+    return distanceTotal
   }
 
   render() {
@@ -145,6 +148,10 @@ export default class TSP {
       ctx.lineTo(nb.x * deviceRatio, nb.y * deviceRatio)
       ctx.stroke()
 
+      console.log('a x '+ na.x,'a y ' +na.y)
+      console.log('b x '+nb.x,'b y ' +nb.y)
+      console.log('delta x ' + (na.x-nb.x), 'delta y '+ (na.y-nb.y))
+      console.log('distance ' + Math.hypot((na.x-nb.x), (na.y-nb.y)))
       return b
     })
 
@@ -154,6 +161,9 @@ export default class TSP {
     $('#path').html(this.orders.reduce(function (a, b) {
       return a.concat(b).concat(" => ");
     }, []).slice(0, -1))
+
+    $('#total-distance').html(this.getDistance(this.orders))
+
 
 
     ctx.lineWidth = 1 * deviceRatio
