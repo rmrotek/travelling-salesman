@@ -78,4 +78,15 @@ export default class TSP {
 
     return gene
   }
+
+  //get total distance in current route
+  getDistance (order = null) {
+    let d = 0
+    let {nodes} = this
+    order.concat(order[0]).reduce((a, b) => {
+      d += Math.sqrt(Math.pow(nodes[a].x - nodes[b].x, 2) + Math.pow(nodes[a].y - nodes[b].y, 2))
+      return b
+    })
+    return d
+  }
 }
