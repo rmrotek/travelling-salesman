@@ -58,35 +58,35 @@ export default class TSP {
 
     let funcs = [
       (g, p1, p2) => {
-        // exchange, t =temporary
-        let t = g[p1]
+        // exchange
+        let temp = g[p1]
         g[p1] = g[p2]
-        g[p2] = t
+        g[p2] = temp
       }, (g, p1, p2) => {
         // reverse
-        let t = g.slice(p1, p2).reverse()
-        g.splice(p1, p2 - p1, ...t)
+        let temp = g.slice(p1, p2).reverse()
+        g.splice(p1, p2 - p1, ...temp)
       }, (g, p1, p2) => {
         // move
-        let t = g.splice(p1, p2 - p1)
-        g.splice(Math.floor(Math.random() * g.length), 0, ...t)
+        let temp = g.splice(p1, p2 - p1)
+        g.splice(Math.floor(Math.random() * g.length), 0, ...temp)
       }
     ]
 
-    let r = Math.floor(Math.random() * funcs.length)
-    funcs[r](gene, p1, p2)
+    let random = Math.floor(Math.random() * funcs.length)
+    funcs[random](gene, p1, p2)
 
     return gene
   }
 
   //get total distance in current route
   getDistance (order = null) {
-    let d = 0
+    let distance = 0
     let {nodes} = this
     order.concat(order[0]).reduce((a, b) => {
-      d += Math.sqrt(Math.pow(nodes[a].x - nodes[b].x, 2) + Math.pow(nodes[a].y - nodes[b].y, 2))
+      distance += Math.sqrt(Math.pow(nodes[a].x - nodes[b].x, 2) + Math.pow(nodes[a].y - nodes[b].y, 2))
       return b
     })
-    return d
+    return distance
   }
 }
