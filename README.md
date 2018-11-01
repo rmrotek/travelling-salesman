@@ -1,5 +1,5 @@
 # travelling-salesman
-Made for recruitment task
+Made for a recruitment task
 
 # -------------------------------------------------------
 
