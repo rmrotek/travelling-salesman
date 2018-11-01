@@ -9,7 +9,7 @@ export default class GA {
     this.mutation_count = 0
     this.generation = 0
     this.lives = []
-    this.scores = 0 
+    this.scores = 0 //total score
     this.best = null
 
     this.rate = options.rate
@@ -21,5 +21,23 @@ export default class GA {
     }
   }
 
+  bear (p1, p2) {
+    // generate descendants, based on p1 & p2 
+    let gene
+    if (Math.random() < this.x_rate) {
+      // use 'cross' function from tsp
+      gene = this.xFunc(p1, p2)
+    } else {
+      gene = p1.gene.slice(0)
+    }
+
+    if (Math.random() < this.mutation_rate) {
+      // use 'mutate' function from tsp
+      gene = this.mFunc(gene)
+      this.mutation_count++
+    }
+
+    return new Life(gene)
+  }
 
 }
