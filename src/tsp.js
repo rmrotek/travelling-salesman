@@ -30,6 +30,40 @@ export default class TSP {
     this._onstop = onstop
   }
 
+  makeRandomNodes (n = 32, life_count = 100) {
+    this.is_running = false
+    this.n = n
+    this.life_count = life_count
+    this.nodes = []
+    this.orders = []
+
+    let padding = 20
+
+    for (let i = 0; i < n; i++) {
+      this.nodes.push({
+        x: Math.floor(Math.random() * (this.width - padding * 2)) + padding,
+        y: Math.floor(Math.random() * (this.height - padding * 2)) + padding
+      })
+      this.orders.push(i)
+    }
+
+    shuffle(this.orders)
+    this.orders.push(this.orders[0])
+
+    this.ga = new GA({
+      life_count: this.life_count,
+      mutation_rate: this.mutation_rate,
+      gene_length: this.n,
+      rate: this.rate.bind(this),
+      xFunc: this.xFunc.bind(this),
+      mFunc: this.mFunc.bind(this)
+    })
+  }
+
+  rate (gene) {
+    return 1 / this.getDistance(gene)
+  }
+
   // cross function
   xFunc (lf1, lf2) {
     let p1 = Math.floor(Math.random() * (this.n - 2)) + 1
