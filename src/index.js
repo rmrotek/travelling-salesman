@@ -11,9 +11,17 @@ const tsp = new TSP($('#c'), WIDTH, HEIGHT, () => {
   $('#btn-start').attr('disabled', false)
   $('#btn-stop').attr('disabled', true)
 })
+
+
 // set numbers of nodes here ! 
 $(document).ready(() => {
-  tsp.makeRandomNodes(10)
+  if($('#number-of-nodes').val() !== undefined) {
+    tsp.makeRandomNodes(parseInt($('#number-of-nodes').val()))
+  } else {
+    tsp.makeRandomNodes(10)
+  }
+  
+
   tsp.render()
   $('#btn-stop').attr('disabled', true)
 
@@ -24,13 +32,20 @@ $(document).ready(() => {
 
 $('#btn-random').click(() => {
   tsp.stop()
-  tsp.makeRandomNodes(10)
+  if($('#number-of-nodes').val() !== undefined) {
+    tsp.makeRandomNodes(parseInt($('#number-of-nodes').val()))
+  } else {
+    tsp.makeRandomNodes(10)
+  }
+  console.log(parseInt($('#number-of-nodes').val()))
   tsp.render()
 })
 
 $('#btn-start').click(() => {
   tsp.start()
+  
 })
 $('#btn-stop').click(() => {
   tsp.stop()
 })
+

@@ -87,7 +87,6 @@ export default class GA {
     }
     this.lives = new_lives
     let bestPath =this.best.gene
-    console.log(bestPath)
 
     // console.log(this.best.score)
     return this.best.gene.slice(0)

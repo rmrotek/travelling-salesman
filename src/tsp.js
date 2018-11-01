@@ -144,7 +144,7 @@ export default class TSP {
 
 
   render() {
-    let { ctx, radius, nodes, deviceRatio } = this
+    let { ctx, nodes, deviceRatio } = this
     ctx.clearRect(0, 0, this.width * deviceRatio, this.height * deviceRatio)
 
     ctx.lineWidth = this.lw * deviceRatio
@@ -152,7 +152,6 @@ export default class TSP {
 
     // lines
     this.orders.concat(this.orders[0]).reduce((a, b) => {
-      console.log(a, '->', b)
       let na = nodes[a]
       let nb = nodes[b]
       ctx.beginPath()
@@ -162,7 +161,6 @@ export default class TSP {
 
      
       let distance =  Math.hypot((na.x-nb.x), (na.y-nb.y))
-      console.log('distance ' + distance)
 
       
 
