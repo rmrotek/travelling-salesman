@@ -143,8 +143,10 @@ export default class TSP {
       ctx.moveTo(na.x * deviceRatio, na.y * deviceRatio)
       ctx.lineTo(nb.x * deviceRatio, nb.y * deviceRatio)
       ctx.stroke()
-      console.log(na.x, na.y)
-      console.log(nb.x, nb.y)
+      console.log('a x '+ na.x,'a y ' +na.y)
+      console.log('b x '+nb.x,'b y ' +nb.y)
+      console.log('delta x ' + (na.x-nb.x), 'delta y '+ (na.y-nb.y))
+      console.log('distance ' + Math.hypot((na.x-nb.x), (na.y-nb.y)))
 
       return b
     })
