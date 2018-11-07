@@ -50,8 +50,8 @@ export default class TSP {
 
     shuffle(this.orders)
     this.orders.push(this.orders[0])
-    console.log('nodes', this.nodes)
-    console.log('orders', this.orders)
+    // console.log('nodes', this.nodes)
+    // console.log('orders', this.orders)
     this.ga = new GA({
       life_count: this.life_count,
       mutation_rate: this.mutation_rate,
@@ -128,7 +128,7 @@ export default class TSP {
       
       return b
     })
-    console.log(distanceTotal)
+    // console.log(distanceTotal)
     return distanceTotal
   }
   
@@ -142,7 +142,7 @@ export default class TSP {
 
       return b
     })
-    console.log(distanceArr)
+    // console.log(distanceArr)
 
     return distanceArr
   }
