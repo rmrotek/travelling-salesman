@@ -44,6 +44,7 @@ $('#btn-random').click(() => {
   } else {
     tsp.makeRandomNodes(10)
   }
+  
   tsp.render()
 })
 
